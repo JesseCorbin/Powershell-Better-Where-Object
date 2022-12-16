@@ -4,29 +4,29 @@ function wh {
         [Parameter(ValueFromPipeline)]
         [pscustomobject]
         $PipeInput,
-        [Parameter(Position=0)]
+        [Parameter(Position=0,Mandatory=$true)]
         [String]
         $Property,
-        [Parameter(Position=1)]
+        [Parameter(Position=1,Mandatory=$true)]
         [String]
         $Query,
         [Parameter()]
-        [Switch]$NoWildCard,
+        [Switch]$NoWildcard,
         [Parameter()]
         [Switch]$NotLike
     )
 
     process {
-        if (!$NoWildCard -and !$NotLike) {
+        if (!$NoWildcard -and !$NotLike) {
             $PipeInput | Where-object {$_.$($Property) -like "*$($Query)*" } -outvariable Var
         }
-        elseif ($NoWildCard -and !$NotLike) {
+        elseif ($NoWildcard -and !$NotLike) {
             $PipeInput | Where-object {$_.$($Property) -like "$($Query)" } -outvariable Var        
         }    
-        elseif (!$NoWildCard -and $NotLike) {
+        elseif (!$NoWildcard -and $NotLike) {
             $PipeInput | Where-object {$_.$($Property) -notlike "*$($Query)*" } -outvariable Var        
         }    
-        elseif ($NoWildCard -and $NotLike) {
+        elseif ($NoWildcard -and $NotLike) {
             $PipeInput | Where-object {$_.$($Property) -notlike "$($Query)" } -outvariable Var        
         }    
     }
