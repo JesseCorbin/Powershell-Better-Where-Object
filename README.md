@@ -46,7 +46,7 @@ Purpose/Change: Initial script development
     Get-Alias | wh name gp
     
 ## .EXAMPLE
-    Get-ADComputer -filter 'name -like "ABC-???-?' -NoWildcard
+    Get-ADComputer -filter 'name -like "ABC-\*"' | wh name ABC-???-? -NoWildcard
 
 ## .EXAMPLE
     Get-ADComputer -filter 'name -like "ABC-\*"' | wh name ABC-\*-t -NotLike | wh name ABC-*-base -NotLike | ogv
